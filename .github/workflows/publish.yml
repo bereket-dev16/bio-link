@@ -1,0 +1,41 @@
+name: MNC Bio Link
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mnc-bio-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: TypeScript kontrolü ve MNC üretim derlemesi
+        run: npm run build
+        env:
+          VITE_BRAND: mnc
+      - name: cPanel yayını
+        if: github.ref == 'refs/heads/main'
+        env:
+          SSH_HOST: ${{ vars.SSH_HOST }}
+          SSH_PORT: ${{ vars.SSH_PORT || '22' }}
+          SSH_USER: ${{ vars.SSH_USER }}
+          DEPLOY_DIR: ${{ vars.DEPLOY_DIR }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: bash .github/scripts/deploy.sh

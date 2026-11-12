@@ -1,0 +1,77 @@
+[
+  {
+    "id": "web",
+    "title": "Resmî Web Sitesi",
+    "url": "https://mncilac.com/",
+    "icon": "globe",
+    "description": "MNC İlaç’ı yakından tanıyın.",
+    "order": 10,
+    "active": true,
+    "featured": true,
+    "type": "link"
+  },
+  {
+    "id": "urunler",
+    "title": "Ürünlerimiz",
+    "url": "https://mncilac.com/urunler/",
+    "icon": "pill",
+    "description": "Vitamin ve takviye edici gıdalar",
+    "order": 20,
+    "active": true,
+    "featured": false,
+    "type": "link"
+  },
+  {
+    "id": "rehber",
+    "title": "Yaşam Rehberi",
+    "url": "https://mncilac.com/blog/",
+    "icon": "book-open",
+    "description": "Sağlıklı yaşama dair yazılar",
+    "order": 30,
+    "active": true,
+    "featured": false,
+    "type": "link"
+  },
+  {
+    "id": "iletisim",
+    "title": "İletişim",
+    "url": "https://mncilac.com/iletisim/",
+    "icon": "message-circle",
+    "description": "Adres ve iletişim bilgileri",
+    "order": 40,
+    "active": true,
+    "featured": false,
+    "type": "link"
+  },
+  {
+    "id": "instagram",
+    "title": "Instagram",
+    "url": "https://www.instagram.com/mnc.ilac/",
+    "icon": "instagram",
+    "description": "@mnc.ilac",
+    "order": 50,
+    "active": true,
+    "featured": false,
+    "type": "social"
+  },
+  {
+    "id": "linkedin",
+    "title": "LinkedIn",
+    "url": "",
+    "icon": "linkedin",
+    "order": 60,
+    "active": false,
+    "featured": false,
+    "type": "social"
+  },
+  {
+    "id": "youtube",
+    "title": "YouTube",
+    "url": "",
+    "icon": "youtube",
+    "order": 70,
+    "active": false,
+    "featured": false,
+    "type": "social"
+  }
+]

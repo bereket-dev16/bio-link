@@ -1,0 +1,40 @@
+{
+  "name": "MNC İlaç",
+  "description": "Bilimden ve doğadan ilham alan vitamin ve takviye edici gıdalar.",
+  "logo": "/logo.webp",
+  "favicon": "/favicon.png",
+  "preloadFonts": [
+    "/fonts/montserrat-variable.woff2",
+    "/fonts/cormorant-garamond.woff2",
+    "/fonts/cormorant-garamond-italic.woff2"
+  ],
+  "colors": {
+    "canvas": "#f5f5ee",
+    "surface": "#fffefa",
+    "ink": "#182f26",
+    "muted": "#53645a",
+    "primary": "#174536",
+    "accent": "#e3edb6",
+    "line": "#d7ddd0",
+    "sage": "#e4eddf",
+    "honey": "#f4ecd9",
+    "mist": "#e4eeeb"
+  },
+  "theme": {
+    "headline": "Daha dengeli",
+    "headlineEmphasis": "bir yaşam.",
+    "cover": "/cover-960.webp",
+    "coverSmall": "/cover-600.webp",
+    "fontStylesheet": "/fonts/brand.css",
+    "fontBody": "Montserrat, Arial, sans-serif",
+    "fontHeading": "'Cormorant Garamond', Georgia, serif",
+    "location": "Bursa, Türkiye"
+  },
+  "seo": {
+    "title": "MNC İlaç | Resmî Bağlantılar",
+    "description": "MNC İlaç'ın resmî web sitesine, vitamin ve takviye edici gıda ürünlerine, Yaşam Rehberi'ne ve iletişim kanallarına buradan ulaşın.",
+    "url": "https://bio.mncilac.com/",
+    "image": "/paylasim.jpg",
+    "imageAlt": "MNC İlaç — Daha dengeli bir yaşam. Cam üzerinde yeşil zeytin yaprakları."
+  }
+}
