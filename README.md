@@ -34,22 +34,8 @@ npm run preview
 
 Build, TypeScript ve marka ayarlarını kontrol eder. `dist/` yalnızca seçilen markayı ve yayındaki bağlantıları içerir. Üretim dosyaları alt alan adının kökünde sunulur. Sosyal paylaşım kartındaki yazıları değiştirdiğinizde `seo.image` alanındaki görseli de güncelleyin.
 
-## cPanel ile yayın
+## Vercel ile otomatik yayın
 
-1. cPanel **Domains → Create a New Domain** ekranında `bio.mncilac.com` ekleyin. **Share document root** seçimini kaldırıp alt alan adına ayrı bir dizin ayırın. **Domains → Document Root** üzerinden yolu doğrulayın. DNS kaydını hostinge yönlendirin ve sertifika hazır olduğunda **Force HTTPS Redirect** seçimini açın. [cPanel alan adı yönetimi](https://docs.cpanel.net/cpanel/domains/domains/)
-2. cPanel **FTP Accounts** bölümünde yayına özel bir hesap oluşturun. **Directory** alanını doğruladığınız alt alan adı dizinine ayarlayın. Bu hesapla giriş yapıldığında FTP’deki `/` doğrudan `bio.mncilac.com` belge kökü olmalıdır. [cPanel FTP hesabı ayarları](https://docs.cpanel.net/cpanel/files/ftp-accounts/)
-3. Bu dizindeki `.bio-link-target` dosyasının tek satırı `bio.mncilac.com` olmalıdır. Önceki kurulumdaki işaret dosyasını kullanabilirsiniz. İlk kurulumda dosyayı cPanel File Manager ile oluşturun. Noktayla başlayan dosyalar için **Show Hidden Files** seçeneğini açabilirsiniz.
-4. GitHub **Settings → Secrets and variables → Actions** bölümünde aşağıdaki **repository** ayarlarını girin.
+Vercel, GitHub’daki `bereket-dev16/bio-link` deposunun `main` dalına bağlıdır. Bu dala gönderilen her commit, Vercel’in Git entegrasyonu üzerinden üretim dağıtımını başlatır. Başarılı derlemenin ardından site canlı adreste güncellenir. [Canlı site](https://bio.mncilac.com) · [GitHub deposu](https://github.com/bereket-dev16/bio-link)
 
-| Tür | Ad | Değer |
-| --- | --- | --- |
-| Variable | `FTP_HOST` | TLS sertifikasıyla eşleşen FTP sunucu adı. Yalnızca adı girin. |
-| Variable | `FTP_USERNAME` | Yayın hesabının tam FTP kullanıcı adı |
-| Variable | `FTP_PORT` | Explicit FTPS portu. Boş bırakılırsa `21` kullanılır. |
-| Secret | `FTP_PASSWORD` | Yayın hesabının FTP parolası |
-
-Her `main` push’unda GitHub Actions `npm ci`, TypeScript kontrolü ve MNC üretim derlemesini çalıştırır. Zorunlu yayın ayarı eksikse build tamamlanır ve Actions günlüğü eksik alanları listeler. Ayarları ekledikten sonra **Actions → MNC Bio Link → Run workflow** ile `main` üzerinde yayını başlatabilirsiniz.
-
-Yayın adımı, explicit FTPS ile TLS kurulmasını zorunlu tutar. Sertifika zinciri ve sunucu adı doğrulanır. Giriş bilgileri, dizin listesi ve dosyalar şifreli aktarılır. Hosting, pasif FTP veri bağlantılarına izin vermelidir.
-
-İlk yazmadan önce FTP kökündeki işaret dosyası okunur ve ana hosting dizini ya da WordPress belirtileri kontrol edilir. `dist/` içindeki dosyalar aynı göreli yollarla `/` altına yüklenir. Her dosya aktarım tamamlanınca geçici adından hedef adına taşınır. `index.html` en son yayımlanır. Mevcut sürümlerin varlıkları ve diğer sunucu dosyaları korunur. Kesilen aktarım, ilgili dizinde `.bio-link-*.part` geçici dosyası bırakabilir.
+Derleme komutu `npm run build`, yayınlanan dizin `dist/` ve varsayılan marka `mnc`’dir. Yayın durumunu ve derleme günlüklerini Vercel projesinin **Deployments** bölümünde ilgili commit üzerinden takip edebilirsiniz.
