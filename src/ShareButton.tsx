@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Check, Copy, Share2, X } from 'lucide-react'
+import { Check, Copy, Share, X } from 'lucide-react'
 import { brand } from './brand'
 
 export function ShareButton() {
@@ -33,7 +33,7 @@ export function ShareButton() {
 
   return <>
     <button type="button" className="share-button" onClick={share}>
-      <Share2 size={16} strokeWidth={1.7} aria-hidden="true" /> Paylaş
+      <Share size={17} strokeWidth={1.65} aria-hidden="true" /> Paylaş
     </button>
     <dialog ref={dialog} className="share-dialog" aria-labelledby="share-title"
       onClick={event => { if (event.target === dialog.current) dialog.current.close() }}>
@@ -41,13 +41,13 @@ export function ShareButton() {
         <div className="flex items-center justify-between gap-2">
           <h2 id="share-title">Sayfayı paylaş</h2>
           <button className="close-button" type="button" aria-label="Kapat" onClick={() => dialog.current?.close()}>
-            <X size={20} aria-hidden="true" />
+            <X size={20} strokeWidth={1.65} aria-hidden="true" />
           </button>
         </div>
         <label htmlFor="share-url">{brand.name} bağlantısı</label>
         <input ref={input} id="share-url" value={brand.seo.url} readOnly dir="ltr" />
         <button type="button" onClick={copyAddress} className="copy-button">
-          {result === 'copied' ? <Check size={18} aria-hidden="true" /> : <Copy size={18} aria-hidden="true" />}
+          {result === 'copied' ? <Check size={18} strokeWidth={1.65} aria-hidden="true" /> : <Copy size={18} strokeWidth={1.65} aria-hidden="true" />}
           {result === 'copied' ? 'Bağlantı kopyalandı' : 'Bağlantıyı kopyala'}
         </button>
         <p role="status" className={result === 'select' ? 'copy-hint' : 'sr-only'}>
