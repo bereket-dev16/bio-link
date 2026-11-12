@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client'
+import type { ReactNode } from 'react'
 import { ArrowUpRight, MapPin } from 'lucide-react'
 import { brand, links, type BrandLink } from './brand'
 import { LinkIcon } from './LinkIcon'
@@ -6,7 +7,6 @@ import { ShareButton } from './ShareButton'
 import './styles.css'
 
 const { theme } = brand
-const profileHost = new URL(brand.seo.url).hostname
 const tagline = [theme.headline, theme.headlineEmphasis].filter(Boolean).join(' ')
 const socialLinks = links.filter(link => link.type === 'social')
 const mainLinks = links.filter(link => link.type === 'link')
@@ -15,13 +15,21 @@ for (const [key, color] of Object.entries(brand.colors)) rootStyle.setProperty(`
 if (theme.fontBody) rootStyle.setProperty('--font-body', theme.fontBody)
 if (theme.fontHeading) rootStyle.setProperty('--font-heading', theme.fontHeading)
 
+function DestinationLink({ link, className, children }: { link: BrandLink; className: string; children: ReactNode }) {
+  const email = link.url.startsWith('mailto:')
+  return <a href={link.url} className={className} target={email ? undefined : '_blank'} rel={email ? undefined : 'noopener noreferrer'}>
+    {link.type === 'social' && link.description && <span className="sr-only">{link.title} </span>}
+    {children}
+    <span className="sr-only">{email ? ' (e-posta uygulamasında açılır)' : ' (yeni sekmede açılır)'}</span>
+  </a>
+}
+
 function Profile() {
   return <header className="profile" aria-labelledby="profile-heading">
     <div className="profile-cover">
       {theme.cover && <img className="hero-image" alt="" src={theme.cover}
         srcSet={theme.coverSmall ? `${theme.coverSmall} 600w, ${theme.cover} 960w` : undefined}
         sizes="(max-width: 555px) 100vw, 512px" fetchPriority="high" />}
-      <span className="site-address">{profileHost}</span>
     </div>
     <div className="profile-body">
       {brand.logo && <div className="logo-frame">
@@ -35,11 +43,10 @@ function Profile() {
       <div className="profile-actions">
         {socialLinks.length > 0 && <nav className="social-links" aria-label="Sosyal medya">
           {socialLinks.map(link =>
-            <a key={link.id} className="social-link" href={link.url} target="_blank" rel="noopener noreferrer"
-              aria-label={`${link.title}${link.description ? ' ' + link.description : ''} (yeni sekmede açılır)`}>
+            <DestinationLink key={link.id} link={link} className="social-link">
               <LinkIcon name={link.icon} size={17} />
               <span>{link.description || link.title}</span>
-            </a>
+            </DestinationLink>
           )}
         </nav>}
         <ShareButton />
@@ -50,15 +57,14 @@ function Profile() {
 
 function LinkCard({ link }: { link: BrandLink }) {
   return <li>
-    <a className={`link-card${link.featured ? ' is-featured' : ''}`} href={link.url} target="_blank" rel="noopener noreferrer">
+    <DestinationLink link={link} className={`link-card${link.featured ? ' is-featured' : ''}`}>
       <span className="link-icon"><LinkIcon name={link.icon} size={22} /></span>
       <span className="card-copy">
         <span className="card-title">{link.title}</span>
         {link.description && <span className="card-description">{link.description}</span>}
       </span>
       <ArrowUpRight className="card-arrow" size={18} strokeWidth={1.65} aria-hidden="true" />
-      <span className="sr-only"> (yeni sekmede açılır)</span>
-    </a>
+    </DestinationLink>
   </li>
 }
 

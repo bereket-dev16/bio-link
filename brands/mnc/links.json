@@ -44,6 +44,17 @@
     "type": "link"
   },
   {
+    "id": "eposta",
+    "title": "E-posta",
+    "url": "mailto:info@mncilac.com",
+    "icon": "mail",
+    "description": "info@mncilac.com",
+    "order": 45,
+    "active": true,
+    "featured": false,
+    "type": "link"
+  },
+  {
     "id": "instagram",
     "title": "Instagram",
     "url": "https://www.instagram.com/mnc.ilac/",
@@ -57,10 +68,10 @@
   {
     "id": "linkedin",
     "title": "LinkedIn",
-    "url": "",
+    "url": "https://www.linkedin.com/company/mnc-ilac",
     "icon": "linkedin",
     "order": 60,
-    "active": false,
+    "active": true,
     "featured": false,
     "type": "social"
   },

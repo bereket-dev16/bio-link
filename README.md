@@ -19,7 +19,7 @@ Terminalde gösterilen yerel adresi açın. Varsayılan marka `mnc` olarak gelir
 - `brands/mnc/assets/` logoyu, 600 ve 960 piksel genişliğindeki kapakları, paylaşım kartını ve yazı tiplerini içerir. JSON içindeki `/logo.webp` bu klasörün köküne karşılık gelir. `seo.url` sayfanın kanonik HTTPS adresidir.
 - `brands/mnc/links.json` içindeki bir kaydı kopyalayıp benzersiz bir `id` verin. `title`, `url` ve `icon` alanlarını değiştirin. `description` isteğe bağlıdır. Linkler `order` değerine göre küçükten büyüğe sıralanır.
 - `type` alanı `link` olduğunda bağlantı kartlarda, `social` olduğunda profil açıklamasının altında görünür. Sosyal bağlantıda kısa açıklama, varsa kullanıcı adını göstermek için kullanılır. `featured: true` ana bağlantı kartını vurgular.
-- `active: false` kaydı yayından kaldırır. Adresi beklenen bir kayıt için `url: ""` ve `active: false` kullanın. Aktif bağlantılar tam HTTPS adresi gerektirir. İlk sürümde resmî sitede adresi doğrulanan Instagram profili etkindir. [MNC İlaç](https://mncilac.com/iletisim/)
+- `active: false` kaydı yayından kaldırır. Adresi beklenen bir kayıt için `url: ""` ve `active: false` kullanın. Web bağlantıları için tam HTTPS adresi, e-posta için `mailto:info@mncilac.com` biçiminde tek alıcı yazın. MNC profilinde Instagram ve LinkedIn etkindir.
 
 Tanımlı ikonlar `globe`, `pill`, `book-open`, `message-circle`, `map-pin`, `mail`, `phone`, `link`, `instagram`, `linkedin` ve `youtube`. Başka bir ikon adı genel bağlantı simgesiyle gösterilir.
 

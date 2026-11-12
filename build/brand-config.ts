@@ -31,6 +31,19 @@ function secureUrl(value: unknown, label: string): string {
   return address
 }
 
+function linkUrl(value: unknown, label: string): string {
+  const address = text(value, label)
+  if (!/^mailto:/i.test(address)) return secureUrl(address, label)
+
+  const mailbox = address.slice('mailto:'.length)
+  const [local, domain] = mailbox.split('@')
+  const plainMailbox = /^[a-z0-9_+'-]+(?:\.[a-z0-9_+'-]+)*@(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i
+  if (!plainMailbox.test(mailbox) || local.length > 64 || domain.length > 253 || mailbox.length > 254) {
+    throw new Error(`${label} tek bir e-posta adresi içeren bir mailto: bağlantısı olmalı.`)
+  }
+  return `mailto:${mailbox}`
+}
+
 function localAsset(value: unknown, assetDir: string, label: string): string {
   const url = text(value, label)
   if (!url.startsWith('/') || url.startsWith('//') || /[?#%\\]/.test(url) ||
@@ -84,7 +97,7 @@ function publishedLinks(value: unknown): BrandLink[] {
     return {
       id, title: text(link.title, `${id}.title`), icon: text(link.icon, `${id}.icon`),
       description: link.description == null || link.description === '' ? undefined : text(link.description, `${id}.description`),
-      url: !link.active && link.url === '' ? '' : secureUrl(link.url, `${id}.url`),
+      url: !link.active && link.url === '' ? '' : linkUrl(link.url, `${id}.url`),
       order: link.order, active: link.active, featured: link.featured, type: link.type,
     }
   })
