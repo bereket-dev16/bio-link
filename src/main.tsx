@@ -55,8 +55,7 @@ function App() {
   return <div className="page">
     <main className="profile-sheet">
       <Profile />
-      {mainLinks.length > 0 && <nav className="links-section" aria-labelledby="links-heading">
-        <h2 id="links-heading">Bağlantılar</h2>
+      {mainLinks.length > 0 && <nav className="links-section" aria-label="Bağlantılar">
         <ul className="link-list">{mainLinks.map(link => <LinkCard key={link.id} link={link} />)}</ul>
       </nav>}
     </main>
