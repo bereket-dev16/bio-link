@@ -37,19 +37,19 @@ Build, TypeScript ve marka ayarlarını kontrol eder. `dist/` yalnızca seçilen
 ## cPanel ile yayın
 
 1. cPanel **Domains → Create a New Domain** ekranında `bio.mncilac.com` ekleyin. **Share document root** seçimini kaldırıp alt alan adına ayrı bir dizin ayırın. **Domains → Document Root** üzerinden yolu doğrulayın. DNS kaydını hostinge yönlendirin ve sertifika hazır olduğunda **Force HTTPS Redirect** seçimini açın. [cPanel alan adı yönetimi](https://docs.cpanel.net/cpanel/domains/domains/)
-2. Doğruladığınız dizinde `.bio-link-target` adlı düz metin dosyası oluşturun. Dosyanın tek satırına `bio.mncilac.com` yazın. File Manager’da nokta ile başlayan dosyaları görmek için **Show Hidden Files** seçeneğini açabilirsiniz.
-3. Hosting hesabında SSH kabuk erişimini ve `rsync` komutunu etkinleştirin. Yayına özel SSH anahtarının açık kısmını cPanel **SSH Access** bölümünde yetkilendirin.
+2. cPanel **FTP Accounts** bölümünde yayına özel bir hesap oluşturun. **Directory** alanını doğruladığınız alt alan adı dizinine ayarlayın. Bu hesapla giriş yapıldığında FTP’deki `/` doğrudan `bio.mncilac.com` belge kökü olmalıdır. [cPanel FTP hesabı ayarları](https://docs.cpanel.net/cpanel/files/ftp-accounts/)
+3. Bu dizindeki `.bio-link-target` dosyasının tek satırı `bio.mncilac.com` olmalıdır. Önceki kurulumdaki işaret dosyasını kullanabilirsiniz. İlk kurulumda dosyayı cPanel File Manager ile oluşturun. Noktayla başlayan dosyalar için **Show Hidden Files** seçeneğini açabilirsiniz.
 4. GitHub **Settings → Secrets and variables → Actions** bölümünde aşağıdaki **repository** ayarlarını girin.
 
 | Tür | Ad | Değer |
 | --- | --- | --- |
-| Variable | `SSH_HOST` | Hosting sağlayıcısının verdiği SSH sunucu adı veya IPv4 adresi |
-| Variable | `SSH_PORT` | SSH portu. Varsayılan `22` |
-| Variable | `SSH_USER` | SSH erişimi olan cPanel kullanıcısı |
-| Variable | `DEPLOY_DIR` | Alt alan adının mutlak fiziksel dizini, örneğin `/home/hesap/bio.mncilac.com` |
-| Secret | `SSH_PRIVATE_KEY` | Yayın anahtarının parolasız özel kısmı, başlık ve son satır dahil |
-| Secret | `SSH_KNOWN_HOSTS` | Sunucu parmak izi hosting sağlayıcısıyla doğrulanmış OpenSSH `known_hosts` satırı. Özel portlarda sunucu alanı `[sunucu]:port` biçimindedir |
+| Variable | `FTP_HOST` | TLS sertifikasıyla eşleşen FTP sunucu adı. Yalnızca adı girin. |
+| Variable | `FTP_USERNAME` | Yayın hesabının tam FTP kullanıcı adı |
+| Variable | `FTP_PORT` | Explicit FTPS portu. Boş bırakılırsa `21` kullanılır. |
+| Secret | `FTP_PASSWORD` | Yayın hesabının FTP parolası |
 
 Her `main` push’unda GitHub Actions `npm ci`, TypeScript kontrolü ve MNC üretim derlemesini çalıştırır. Zorunlu yayın ayarı eksikse build tamamlanır ve Actions günlüğü eksik alanları listeler. Ayarları ekledikten sonra **Actions → MNC Bio Link → Run workflow** ile `main` üzerinde yayını başlatabilirsiniz.
 
-SSH aktarımı her oturumda fiziksel hedefi ve işaret dosyasını doğrular. Ana web kökü, sembolik dizinler ve WordPress kurulumları doğrulamadan geçemez. Önce statik varlıklar, en son `index.html` aktarılır. Önceki build dosyaları ve hostinge ait dosyalar korunur.
+Yayın adımı, explicit FTPS ile TLS kurulmasını zorunlu tutar. Sertifika zinciri ve sunucu adı doğrulanır. Giriş bilgileri, dizin listesi ve dosyalar şifreli aktarılır. Hosting, pasif FTP veri bağlantılarına izin vermelidir.
+
+İlk yazmadan önce FTP kökündeki işaret dosyası okunur ve ana hosting dizini ya da WordPress belirtileri kontrol edilir. `dist/` içindeki dosyalar aynı göreli yollarla `/` altına yüklenir. Her dosya aktarım tamamlanınca geçici adından hedef adına taşınır. `index.html` en son yayımlanır. Mevcut sürümlerin varlıkları ve diğer sunucu dosyaları korunur. Kesilen aktarım, ilgili dizinde `.bio-link-*.part` geçici dosyası bırakabilir.
