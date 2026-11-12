@@ -1,8 +1,11 @@
 import { fileURLToPath } from 'node:url'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, loadEnv } from 'vite'
 import { loadBrand } from './build/brand-config.ts'
+import { SocialLinks } from './src/Links.tsx'
 
 const root = fileURLToPath(new URL('.', import.meta.url))
 const html = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;')
@@ -38,7 +41,8 @@ export default defineConfig(({ mode }) => {
     `<meta property="og:image:alt" content="${html(seo.imageAlt)}" />`,
     '<meta name="twitter:card" content="summary_large_image" />',
   ].filter(Boolean).join('\n    ')
-  const fallback = links.map((link) =>
+  const fallbackSocial = renderToStaticMarkup(createElement(SocialLinks, { links }))
+  const fallback = links.filter(link => link.type === 'link').map((link) =>
     `<li><a class="link-card" href="${html(link.url)}">${html(link.title)}</a></li>`,
   ).join('')
 
@@ -62,7 +66,7 @@ export default defineConfig(({ mode }) => {
         transformIndexHtml(page) {
           return page.replace('<!-- brand-head -->', () => head)
             .replace('<!-- brand-links -->', () =>
-              `<main class="page"><h1 class="brand-name">${html(brand.name)}</h1><p>${html(brand.description)}</p><nav aria-label="Bağlantılar"><ul class="link-list grid">${fallback}</ul></nav></main>`,
+              `<main class="page"><h1 class="brand-name">${html(brand.name)}</h1><p>${html(brand.description)}</p>${fallbackSocial}<nav aria-label="Bağlantılar"><ul class="link-list grid">${fallback}</ul></nav></main>`,
             )
         },
       },

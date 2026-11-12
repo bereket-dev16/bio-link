@@ -1,28 +1,18 @@
 import { createRoot } from 'react-dom/client'
-import type { ReactNode } from 'react'
 import { ArrowUpRight, MapPin } from 'lucide-react'
 import { brand, links, type BrandLink } from './brand'
 import { LinkIcon } from './LinkIcon'
+import { DestinationLink, SocialLinks } from './Links'
 import { ShareButton } from './ShareButton'
 import './styles.css'
 
 const { theme } = brand
 const tagline = [theme.headline, theme.headlineEmphasis].filter(Boolean).join(' ')
-const socialLinks = links.filter(link => link.type === 'social')
 const mainLinks = links.filter(link => link.type === 'link')
 const rootStyle = document.documentElement.style
 for (const [key, color] of Object.entries(brand.colors)) rootStyle.setProperty(`--${key}`, color)
 if (theme.fontBody) rootStyle.setProperty('--font-body', theme.fontBody)
 if (theme.fontHeading) rootStyle.setProperty('--font-heading', theme.fontHeading)
-
-function DestinationLink({ link, className, children }: { link: BrandLink; className: string; children: ReactNode }) {
-  const email = link.url.startsWith('mailto:')
-  return <a href={link.url} className={className} target={email ? undefined : '_blank'} rel={email ? undefined : 'noopener noreferrer'}>
-    {link.type === 'social' && link.description && <span className="sr-only">{link.title} </span>}
-    {children}
-    <span className="sr-only">{email ? ' (e-posta uygulamasında açılır)' : ' (yeni sekmede açılır)'}</span>
-  </a>
-}
 
 function Profile() {
   return <header className="profile" aria-labelledby="profile-heading">
@@ -41,14 +31,7 @@ function Profile() {
         <p className="intro">{brand.description}</p>
       </div>
       <div className="profile-actions">
-        {socialLinks.length > 0 && <nav className="social-links" aria-label="Sosyal medya">
-          {socialLinks.map(link =>
-            <DestinationLink key={link.id} link={link} className="social-link">
-              <LinkIcon name={link.icon} size={17} />
-              <span>{link.description || link.title}</span>
-            </DestinationLink>
-          )}
-        </nav>}
+        <SocialLinks links={links} />
         <ShareButton />
       </div>
     </div>

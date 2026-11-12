@@ -6,6 +6,7 @@
   --ink: #1d2725;
   --muted: #59635f;
   --primary: #223832;
+  --featured-surface: var(--primary);
   --on-primary: #fff;
   --on-primary-muted: #d8e3dd;
   --accent: #3e6656;
@@ -38,7 +39,7 @@ body {
 body::before, body::after {
   content: ''; position: fixed; z-index: -1; pointer-events: none;
   width: min(100vw, 980px); height: min(100vh, 920px);
-  background: repeating-radial-gradient(ellipse at -8% -20%, transparent 0 42px, color-mix(in srgb, var(--accent) 13%, transparent) 43px, transparent 44px 61px);
+  background: repeating-radial-gradient(ellipse at -8% -20%, transparent 0 42px, color-mix(in srgb, var(--accent) 18%, transparent) 43px, transparent 44px 61px);
   mask-image: radial-gradient(ellipse farthest-side at left top, #000 12%, transparent 100%);
 }
 body::before { left: 0; top: 0; }
@@ -87,6 +88,7 @@ h1, h2 { font-family: var(--font-heading); color: var(--ink); }
   font-size: 12px; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere;
 }
 .social-link svg, .share-button svg { flex-shrink: 0; }
+.social-link { width: 44px; height: 44px; padding: 0; }
 .social-links + .share-button { position: relative; }
 .social-links + .share-button::before {
   content: ''; position: absolute; left: -5px; width: 1px; height: 14px; background: var(--line);
@@ -109,7 +111,7 @@ h1, h2 { font-family: var(--font-heading); color: var(--ink); }
 .card-title { font-size: 15px; font-weight: 500; line-height: 1.4; letter-spacing: -.023em; }
 .card-description { margin-top: 2px; font-size: 12px; font-weight: 400; line-height: 1.5; color: var(--muted); }
 .card-arrow { color: var(--muted); transition: transform 160ms ease; }
-.is-featured { color: var(--on-primary); background: var(--primary); border-color: var(--primary); }
+.is-featured { color: var(--on-primary); background: var(--featured-surface); border-color: var(--featured-surface); }
 .is-featured .card-description { color: var(--on-primary-muted); }
 .is-featured :is(.link-icon, .card-arrow) { color: inherit; }
 .footer {
@@ -141,15 +143,15 @@ h1, h2 { font-family: var(--font-heading); color: var(--ink); }
 .copy-button { gap: var(--space-2); width: 100%; padding: 10px; margin-top: var(--space-3); background: var(--primary); color: var(--on-primary); font-size: 13px; font-weight: 500; }
 .copy-hint { font-size: 12px; margin-top: var(--space-2); }
 noscript .page { padding: var(--space-6) var(--gutter); }
+noscript .social-links { justify-content: flex-start; margin-top: var(--space-2); }
 noscript .link-list { margin-top: var(--space-5); }
 noscript .link-card { display: flex; }
 
 @media (max-width: 359px) {
   .link-card { gap: var(--space-3); padding-inline: var(--space-3); }
-  .social-link, .share-button { padding-inline: 5px; }
 }
 @media (max-width: 559px) {
-  body::before, body::after { opacity: .64; }
+  body::before, body::after { opacity: .76; }
 }
 @media (min-width: 560px) {
   :root { background: var(--canvas); --gutter: 30px; }
@@ -181,11 +183,12 @@ noscript .link-card { display: flex; }
 @media (hover: hover) {
   .social-link:hover, .share-button:hover, .close-button:hover { background: var(--wash); }
   .link-card:hover { border-color: color-mix(in srgb, var(--accent) 54%, var(--line)); background: var(--wash); }
-  .is-featured:hover, .copy-button:hover { background: color-mix(in srgb, var(--primary) 91%, black); }
+  .is-featured:hover { background: color-mix(in srgb, var(--featured-surface) 94%, black); }
+  .copy-button:hover { background: color-mix(in srgb, var(--primary) 91%, black); }
   .link-card:hover .card-arrow { transform: translate(1.5px, -1.5px); }
 }
 .link-card:active { transform: scale(.994); background: color-mix(in srgb, var(--accent) 9%, var(--surface)); }
-.is-featured:active { background: color-mix(in srgb, var(--primary) 85%, black); }
+.is-featured:active { background: color-mix(in srgb, var(--featured-surface) 90%, black); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .link-card:active, .link-card:hover .card-arrow { transform: none; }

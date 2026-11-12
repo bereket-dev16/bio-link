@@ -1,7 +1,7 @@
 [
   {
     "id": "web",
-    "title": "Resmî Web Sitesi",
+    "title": "Resmi Web Sitesi",
     "url": "https://mncilac.com/",
     "icon": "globe",
     "description": "MNC İlaç’ı yakından tanıyın.",
@@ -44,17 +44,6 @@
     "type": "link"
   },
   {
-    "id": "eposta",
-    "title": "E-posta",
-    "url": "mailto:info@mncilac.com",
-    "icon": "mail",
-    "description": "info@mncilac.com",
-    "order": 45,
-    "active": true,
-    "featured": false,
-    "type": "link"
-  },
-  {
     "id": "instagram",
     "title": "Instagram",
     "url": "https://www.instagram.com/mnc.ilac/",
@@ -71,6 +60,17 @@
     "url": "https://www.linkedin.com/company/mnc-ilac",
     "icon": "linkedin",
     "order": 60,
+    "active": true,
+    "featured": false,
+    "type": "social"
+  },
+  {
+    "id": "eposta",
+    "title": "E-posta",
+    "url": "mailto:info@mncilac.com",
+    "icon": "mail",
+    "description": "info@mncilac.com",
+    "order": 65,
     "active": true,
     "featured": false,
     "type": "social"

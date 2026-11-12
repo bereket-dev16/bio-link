@@ -18,7 +18,8 @@
     "on-primary-muted": "#1F2F18",
     "accent": "#426D2A",
     "line": "#DCE3D8",
-    "wash": "#F4F8F1"
+    "wash": "#F4F8F1",
+    "featured-surface": "#94C76F"
   },
   "theme": {
     "cover": "/kabartma-yesil-960.webp",
@@ -29,10 +30,10 @@
     "location": "Bursa, Türkiye"
   },
   "seo": {
-    "title": "MNC İlaç | Resmî Bağlantılar",
-    "description": "MNC İlaç'ın resmî web sitesine, vitamin ve takviye edici gıda ürünlerine, Yaşam Rehberi'ne ve iletişim kanallarına buradan ulaşın.",
+    "title": "MNC İlaç | Resmi Bağlantılar",
+    "description": "MNC İlaç'ın resmi web sitesine, vitamin ve takviye edici gıda ürünlerine, Yaşam Rehberi'ne ve iletişim kanallarına buradan ulaşın.",
     "url": "https://bio.mncilac.com/",
     "image": "/resmi-baglantilar-yesil.jpg",
-    "imageAlt": "MNC İlaç resmî bağlantıları. Kabartma amblemli yeşil kapağın altındaki beyaz şeritte MNC İlaç logosu ve bio.mncilac.com adresi."
+    "imageAlt": "MNC İlaç resmi bağlantıları. Kabartma amblemli yeşil kapağın altındaki beyaz şeritte MNC İlaç logosu ve bio.mncilac.com adresi."
   }
 }
